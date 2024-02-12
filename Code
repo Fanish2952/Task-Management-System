@@ -1,0 +1,82 @@
+#include <iostream>
+#include <fstream>
+
+using namespace std;
+class Task_manager{
+	
+	private :
+		string task;
+		fstream fout;
+	
+	public :
+		void add_task();
+		void display_task();
+		void delete_task();
+		
+};
+
+void Task_manager::add_task()
+{
+	fout.open("F:\\abc.txt",ios::app|ios::in|ios::out);
+	if(fout)
+	{
+		cout<<"file opened successfully";
+		cout<<"\n\n\t\tEnter the task : ";
+		cin.ignore();
+		getline(cin,task);
+		fout<<endl<<task<<endl;
+		fout.close();
+	}
+	else{
+		cout<<"failed to open file.";
+	}
+}
+
+void Task_manager::display_task()
+{
+	string str;
+	fout.open("F:\\abc.txt",ios::app|ios::in|ios::out);
+	cout<<"\n\t\tThe tasks are : ";if(fout)
+	{
+		while(getline(fout,str))
+		{
+			cout<<"\n\t\t\t"<<str;
+		}
+		fout.close();
+	}
+	
+}
+
+void Task_manager::delete_task()
+{
+	fout.open("F:\\abc.txt",ios::out);
+	fout.close();
+}
+int main()
+{
+	Task_manager *ob=new Task_manager();
+	int choice;
+	while(choice!=-1)
+	{
+		cout<<"\n\n\t\t\tEnter :\n\n\t\t\t\t1 ----> for adding task\n\n\t\t\t\t2 ----> for displaying task\n\n\t\t\t\t3 ----> for deleting the file\n\n\t\t\t\tEnter your choice\n\n\t\t\t\t\t:";
+		cin>>choice;
+		switch(choice)
+		{
+			case 1:
+				ob->add_task();
+				break;
+			case 2:
+				ob->display_task();
+				break;
+			case -1:
+				cout<<"Exiting";
+				break;
+			case 3:
+				ob->delete_task();
+				break;
+			default:
+				cout<<"\n\n\t\tEnter proper choice";
+		}
+	}
+	return 0;
+}
